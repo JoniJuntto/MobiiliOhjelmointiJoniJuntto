@@ -3,28 +3,34 @@ import { Alert, StyleSheet, Text, TextInput, View, Button } from 'react-native';
 
 export default function App() {
 
-  const [guess, setGuess] = useState(0);
+  const [guess, setGuess] = useState('')
   const [teksti, setTeksti] = useState("Guess a number between 1-100");
 
   const [rndNmbr, setrndNmbr] = useState(() => {
     return Math.floor(Math.random() * 100 ) + 1;
   });
 
-  const [trys, setTrys] = useState(0);
+  var [trys, setTrys] = useState(() => {
+    return 1
+  });
  
   const tryGuess = () => {
     if(parseInt(guess) == rndNmbr ){
-      trys = JSON.stringify(trys)
       Alert.alert("You guessed the number in " + trys + " guesses");
-      
+      setrndNmbr(Math.floor(Math.random() * 100 ) + 1);
+      setTrys(1)
+      setTeksti("Guess a number between 1-100")
+      setGuess('');
     }
     else if (parseInt(guess) < rndNmbr){
       setTeksti("Your guess "+ guess + " was too low");
       setTrys(prevTrys => prevTrys + 1)
+      setGuess('');
     }
     else if (parseInt(guess) > rndNmbr){
       setTeksti("Your guess "+ guess + " was too high");
       setTrys(prevTrys => prevTrys + 1)
+      setGuess('');
     }
     
   }
