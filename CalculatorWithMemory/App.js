@@ -9,24 +9,23 @@ export default function App() {
   const [numero2, setNumero2] = useState('');
   const [tulos, setTulos] = useState('');
 
-  const[text, setText] = useState(() => {
-    return null;
-  });
+  var teksti = ''
 
   const[data, setData] = useState([]);
 
   const summa = () => {
     setTulos(parseInt(numero1) + parseInt(numero2));
     const result = (parseInt(numero1) + parseInt(numero2));
-    setText(numero1 + " + " + numero2 + " = " + result)
-    setData([...data, {key:text }])
+    teksti = (numero1 + " + " + numero2 + " = " + result)
+    setData([...data, {key:teksti }])
   }
   const miinus = () => {
     setTulos(numero1 - numero2);
     const result = numero1 - numero2;
-    setText(numero1 + " - " + numero2 + " = " + result)
-    setData([...data, {key:text }])
+    teksti = (numero1 + " - " + numero2 + " = " + result)
+    setData([...data, {key:teksti }])
   }
+
 
 
   return (
