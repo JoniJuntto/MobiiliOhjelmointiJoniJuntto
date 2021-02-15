@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, StyleSheet, Text, View, Button, TextInput, FlatList } from 'react-native';
+import { Alert, StyleSheet, Text, View, Button, TextInput, FlatList, Image } from 'react-native';
 
 export default function App() {
   const [value, setValue] = useState('');
@@ -11,26 +11,40 @@ export default function App() {
     
     try {
       const response = await fetch(url);
-      const data = await response.json();
-      setRecipes(data);
+      var data = await response.json();
+      console.log(data.results)
+      setRecipes(data.results);
     }catch (error){
       console.log('error', error);
     }
     
   }
+
+  const listSeparator = () =>{
+    return (
+      <View style={{height:1, width:'100%', backgrounColor:'gray', marginLeft: '10%'}}/>
+    );
+  };
   
 
   return (
     <View style={styles.container}>
       <FlatList 
-        renderItem={({item}) => ( 
-        <View>
-          <Text>{item.title}</Text>
-          <Image source={{uri: item.thumbnail}} style={styles.image} />
-        </View>
-          )}
+        style={styles.lista}
+        keyExtractor={(item, index) => String(index)}
+        renderItem={({item}) =>{
+          return(
+            <View>
+              <Text>{item.title}</Text>
+              <Image style={{width:60,height:40 }} source={{uri:`${item.thumbnail}`,}}/>
+            </View>
+          );    
+        }}
+        ItemSeparatorComponent={listSeparator}
         data={recipes}
-      />
+        />
+        
+      
       <TextInput style={{fontSize: 25, width: 200}} value={value} placeholder="Ingredient" onChangeText={(value) => setValue(value)} />
       <Button title="Find" onPress={getRecipes} />
     </View>
@@ -43,5 +57,9 @@ const styles = StyleSheet.create({
   backgroundColor: '#fff',
   alignItems: 'center',
   justifyContent: 'center',
+ },
+ lista:{
+  fontSize: 25,
+  
  },
 });
