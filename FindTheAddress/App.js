@@ -16,7 +16,6 @@ export default function App() {
     try {
       const response = await fetch(url);
       var data = await response.json();
-      debugTeksti = data.locations;
       return data;
 
     } catch (error) {
