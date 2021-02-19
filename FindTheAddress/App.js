@@ -9,19 +9,17 @@ export default function App() {
   const [regionLat, setRegionLat] = useState(60.201373);
   const [regionLng, setRegionLng] = useState(24.934041);
   const [inputText, setInputText] = useState('')
-  var debugTeksti = '';
-  
 
   const fetchCoordinates = async () => {
     const url = 'http://www.mapquestapi.com/geocoding/v1/address?key=Bby2hRhBeTr99AdtNoHwEwl54zAEepZA&location=' + inputText;
 
-    try{
+    try {
       const response = await fetch(url);
       var data = await response.json();
       debugTeksti = data.locations;
       return data;
-      
-    }catch(error){
+
+    } catch (error) {
       console.log('error', error);
     }
   }
@@ -40,21 +38,20 @@ export default function App() {
   return (
     <View style={styles.container}>
       <MapView style={styles.map}
-      region={{
-        latitude: regionLat,
-        longitude: regionLng,
-        latitudeDelta: 3.0,
-        longitudeDelta: 3.0,
-      }}
+        region={{
+          latitude: regionLat,
+          longitude: regionLng,
+          latitudeDelta: 3.0,
+          longitudeDelta: 3.0,
+        }}
       >
         <Marker coordinate={{
           latitude: markerLatitude,
           longitude: markerLongitude
         }} title='A place' />
       </MapView>
-      <Text>{debugTeksti}</Text>
       <TextInput textAlign={'center'} style={styles.input} keyboardType={'default'} onChangeText={text => setInputText(text)} value={inputText} />
-      <Button onPress={pressed} title='Show'/>
+      <Button onPress={pressed} title='Show' />
     </View>
   );
 }
@@ -72,7 +69,7 @@ const styles = StyleSheet.create({
     height: Dimensions.get('window').height,
   },
   input: {
-    borderColor:'black',
+    borderColor: 'black',
     borderWidth: 1,
     width: 300,
     height: 40,
